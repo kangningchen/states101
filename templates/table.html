@@ -1,0 +1,33 @@
+<head>
+    <script src="../static/plotly-latest.min.js"></script>
+</head>
+<h1>Members of Congress for {{stateterritory}}...</h1>
+
+{{state_territory_map | safe}}
+
+<h2>Member Table</h2>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Party</th>
+    </tr>
+{% for r in rows %}
+    <tr>
+        <td><a href="/search/{{r[3]}}">{{r[0]}}</a></td>
+        <td>{{r[1]}}</td>
+        <td>{{r[2]}}</td>
+    </tr>
+{% endfor %}
+</table> 
+
+{{barchart | safe}}
+
+<h2>{{stateterritory}} in News...</h2>
+{% for l in list %}
+<ul>
+<li><a href="{{l.web_url}}">{{l.headline}}</a> published on {{l.pub_date}}</li>
+</ul>
+{% endfor %}`
+
+<a href="/">Start a New Search<a>
