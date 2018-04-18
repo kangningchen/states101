@@ -1,6 +1,30 @@
 from model import *
 import unittest
 
+class TestScrapingAndCrawling(unittest.TestCase):
+
+	def test_House(self):
+		# Test if all 477 members' info is obtained and if member info list is populated correctly
+	    House_lst = get_House()
+	    self.assertEqual(len(House_lst), 477)
+	    self.assertEqual(House_lst[0][0], 'Ralph Abraham')
+	    self.assertEqual(House_lst[0][1], 'U.S. Representative')
+	    self.assertEqual(House_lst[0][2], 'R')
+	    self.assertEqual(House_lst[0][3], 'LA')
+	    self.assertEqual(House_lst[0][4], 'https://www.c-span.org/person/?76236')
+	    self.assertEqual(House_lst[0][5], 'Ralph Lee Abraham, Jr. is an American physician and former veterinarian from Mangham, Louisiana, who won election on December 6, 2014, as a Republican to represent LA-5 in the United States House of Representatives. Wikipedia*')
+	
+	def test_Senate(self):
+		# Test if all 108 members' info is obtained and if member info list is populated correctly
+		Senate_lst = get_Senate()
+		self.assertEqual(len(Senate_lst), 108)
+		self.assertEqual(Senate_lst[0][0], 'Lamar Alexander')
+		self.assertEqual(Senate_lst[0][1], 'U.S. Senator')
+		self.assertEqual(Senate_lst[0][2], 'R')
+		self.assertEqual(Senate_lst[0][3], 'TN')
+		self.assertEqual(Senate_lst[0][4], 'https://www.c-span.org/person/?5')
+		self.assertEqual(Senate_lst[0][5], 'Andrew Lamar Alexander Jr. is the senior United States Senator from Tennessee, and a member of the Republican Party. Wikipedia*')
+		
 
 class TestNYTSearch(unittest.TestCase):
 
