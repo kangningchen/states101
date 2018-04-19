@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import json
 import sqlite3
 import secrets
-import plotly
 import plotly.graph_objs as go
 import plotly.offline as offline
 
@@ -432,7 +431,7 @@ def get_article_lst(q):
 	article_inst_lst = create_article_insts(NYT_data['response']['docs'])
 	return article_inst_lst
 
-# Plot # of democrats vs. # of republicans bar chart
+# Plot num of democrats vs. num of republicans bar chart
 def plot_bar(y1, y2):
 	trace1 = go.Bar(
 	    x=['Demorat'],
