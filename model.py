@@ -4,7 +4,6 @@ import json
 import sqlite3
 import secrets
 import plotly
-# import plotly.plotly as py
 import plotly.graph_objs as go
 import plotly.offline as offline
 
