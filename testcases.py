@@ -25,7 +25,56 @@ class TestScrapingAndCrawling(unittest.TestCase):
 		self.assertEqual(Senate_lst[0][4], 'https://www.c-span.org/person/?5')
 		self.assertEqual(Senate_lst[0][5], 'Andrew Lamar Alexander Jr. is the senior United States Senator from Tennessee, and a member of the Republican Party. Wikipedia*')
 		
+class TestDatabase(unittest.TestCase):
 
+	def test_member_table(self):
+		# Test if Member table has the correct amount of entries
+		conn = sqlite3.connect('congress_members.db')
+		cur = conn.cursor()
+
+		statement = 'SELECT Name FROM Member'
+		cur.execute(statement)
+		results = cur.fetchall()
+		self.assertEqual(len(results), 585)
+		self.assertIn(('Elizabeth Warren',), results)
+
+		conn.close()
+
+	def test_join(self):
+		# Test if tables can be joined correctly
+		conn = sqlite3.connect('congress_members.db')
+		cur = conn.cursor()
+
+		statement = '''
+				SELECT Member.Name, Party.PartyName, Title.TitleName, 
+					   StateTerritory.StateTerritoryName 
+				FROM Member
+				JOIN Party ON Member.PartyAffiliation=Party.Id
+				JOIN Title ON Member.Title=Title.Id
+				JOIN StateTerritory ON Member.StateTerritory=StateTerritory.Id
+		'''
+		cur.execute(statement)
+		results = cur.fetchall()
+		self.assertIn(('Alma Adams', 'Democrat', 'U.S. Representative', 'North Carolina'), results)
+		self.assertIn(('Barbara Boxer', 'Democrat', 'U.S. Senator (Former)', 'California'), results)
+
+		conn.close()
+
+class TestDataProcessing(unittest.TestCase):
+
+	def test_data_processing(self):
+		rows_all = process_request('MI')
+		self.assertEqual(len(rows_all), 17)
+		self.assertIn(['Justin Amash', 'U.S. Representative', 'Republican', '1033767', 'Michigan'], rows_all)
+		rows_republican = process_request('MI', 'democrat')
+		self.assertEqual(len(rows_republican), 7)
+
+		details = get_member_details('62502')
+		self.assertEqual(('Karen Bass', 'D', 'CA', 'Karen Ruth Bass is an American Democrat politician. She represents California\'s 37th congressional district in the United States House of Representatives; she was first elected in 2010. Wikipedia*'), details)
+
+		count = get_count('MD')
+		self.assertEqual((12, 1), count)
+		
 class TestNYTSearch(unittest.TestCase):
 
 	def test_NYT_data(self):
