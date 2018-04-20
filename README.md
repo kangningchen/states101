@@ -31,3 +31,6 @@ where you save app.py and run: python/python3 app.py. You would see:
  * Debugger is active!
  * Debugger PIN: 852-803-819
 Go to http://127.0.0.1:5000/ in your browswer and begin interacting with the application!
+
+# ALERT
+This application gathers a majority of its data from crawling close to 600 pages. Crawl bit by bit to prevent crashing your computer.
