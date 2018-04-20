@@ -62,5 +62,5 @@ def show_member_detais(ident):
 
 
 if __name__ == '__main__':
-    # model.build_db()
+    model.build_db()
     app.run(debug=True)
